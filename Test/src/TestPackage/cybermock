@@ -1,0 +1,59 @@
+{
+	"live": "false",
+	"notificationItems": [
+		{
+			"NotificationRequestItem": {
+				"additionalData": {
+					"expiryDate": "03\\/2030",
+					"authCode": "018783",
+					"cardSummary": "1111",
+					"recurring.recurringDetailReference": "8316227975493778",
+					"threeds2.cardEnrolled": "false",
+					"recurringProcessingModel": "CardOnFile",
+					"paymentMethod": "visa",
+					"recurring.shopperReference": "2904251510",
+					"hmacSignature": "y1eXBIP4PhBmwWyIsEMomponQBfrNWV0fcCglbAxdvQ="
+				},
+				"amount": {
+					"currency": "GBP",
+					"value": 51099
+				},
+				"eventCode": "AUTHORISATION",
+				"eventDate": "2021-06-04T11:05:49+02:00",
+				"merchantAccountCode": "SAPCOM_TEST_GATEWAY",
+				"merchantReference": "2904251510_1622797539007",
+				"operations": [
+					"CANCEL",
+					"CAPTURE",
+					"REFUND"
+				],
+				"paymentMethod": "visa",
+				"pspReference": "862622797549097H",
+				"reason": "018783:1111:03\\/2030",
+				"success": "true"
+			}
+		}
+	]
+}
+1
+CAPTURE_PER_SHIPMENT
+AUTO_CAPTURE  authorization的时候，就要收钱，在cybermock中生成authorization记录的同时，生成settlement记录 
+CAPTURE_PER_SHIPMENT   一次authorization，只能收钱一次，第二次就报错 
+PARTIAL_CAPTURE  一次authorization，可以收钱多次，操作authorization总额就报错
+2
+Request url should cross approuter？Approuter do not add cybermock service.  callservice
+
+3 第三种
+使用哪个id进行串接
+adyen，stripe
+发送settlement request用的authorization的 pspReference
+发送refund request，也是用的authorization的pspReference
+
+worldpay，cybersource 是用referenceId串起来的
+发送settlement request用的referenceId
+发送refund request，也是用的referenceId
+
+应该也有（我们提供了这样的选择，只是我暂时没看到哪个是这样用的）
+发送settlement request用的authorization的 pspReference
+发送refund request，也是用的settlement的pspReference
+
